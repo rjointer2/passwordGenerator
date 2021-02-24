@@ -43,13 +43,7 @@ let generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
 
-  let promptLength = prompt("Please insert a number between 8 and 128")
-
-
-  let password = generatePassword(promptLength);
-  let passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
+  generatePassword()
 
 }
 
@@ -58,29 +52,59 @@ generateBtn.addEventListener("click", writePassword);
 
 
 
-let generatePassword = (n) => {
+let generatePassword = () => {
 
-  let selectedCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/\!@#$%^&*()'
+  const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numeric = '1234567890';
+  const special = '/\!@#$%^&*()';
 
   let empString = '';
 
+  let passwordGen = '';
+
+
+  const userlower = confirm("Do you want lower?")
+  const userupper = confirm("Do you want upper?")
+  const userNumeric = confirm("Do you want numbers?")
+  const userSpecial = confirm('Do you want special?')
+  const userNum = prompt("Choose a Number")
+
+  if (userlower) {
+    empString = empString + lowercase;
+  }
+
+  if (userupper) {
+    empString = empString + uppercase;
+  }
+
+  if (userNumeric) {
+    empString = empString + numeric;
+  }
+
+  if (userSpecial) {
+    empString = empString + special;
+  }
+
+  if(userNum) {
+    n = userNum;
+  }
+
 
   if( n > 8 && n < 128 ) {
-     
     for(let i = 0; i < n; i++) {
-      let r = Math.floor(Math.random() * selectedCharacters.length);  
-      empString += selectedCharacters[r];
+      let ran = Math.floor(Math.random() * empString.length);  
+      passwordGen += empString[ran];
     }
-    return empString
+    
+  } 
 
-    /* CHANGE THE RESULTS */
-  } else {
-    return false
-    /* CHANGE THE RESULTS */
-  }
+  console.log(passwordGen)
+  let passwordText = document.querySelector("#password");
+  passwordText.value = passwordGen;
+
 }
 
-console.log(generatePassword(123))
 
 
 
